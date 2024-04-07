@@ -34,8 +34,9 @@
     "workdir":"Work Directory",
     "prefix":"Output Prefix",
     "noPolyA":"No PolyA",
+    "plot":"Plot",
     "lessMem":"Less Mem",
-      "rowsLimit":"Rows Limit",
+    "rowsLimit":"Rows Limit",
     "analysisBtn":"Analysis",
     "log":"Running Log"
   },
