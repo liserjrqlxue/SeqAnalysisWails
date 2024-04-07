@@ -1,12 +1,18 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
-	"os/exec"
+	"os"
+	"path/filepath"
+	"strings"
 
+	"SeqAnalysis/pkg/seqAnalysis"
+
+	"github.com/liserjrqlxue/goUtil/osUtil"
+	"github.com/liserjrqlxue/goUtil/simpleUtil"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -27,6 +33,9 @@ func (a *App) startup(ctx context.Context) {
 	// Perform your setup here
 	// 在这里执行初始化设置
 	a.ctx = ctx
+	logFile := osUtil.Create("SeqAnalysisWails.log")
+	mw := io.MultiWriter(logFile, a)
+	slog.SetDefault(slog.New(slog.NewTextHandler(mw, nil)))
 }
 
 // domReady is called after the front-end dom has been loaded
@@ -64,7 +73,7 @@ func (a *App) SelectFile(title string) (path string, err error) {
 		},
 		ShowHiddenFiles: true,
 	})
-	slog.Info("[%s]:[%v]\n", path, err)
+	slog.Info("select file", "path", path, "err", err)
 	if err != nil {
 		slog.Info("cancel?")
 		return
@@ -73,12 +82,14 @@ func (a *App) SelectFile(title string) (path string, err error) {
 }
 
 func (a *App) Write(p []byte) (n int, err error) {
+	// fmt.Fprintf(os.Stderr, "%s", p)
 	// 将输出发送到前端
-	runtime.EventsEmit(a.ctx, "stderr", string(p))
+	runtime.EventsEmit(a.ctx, "stderr-output", string(p))
+	// log.Print(string(p))
 	return len(p), nil
 }
 
-func (a *App) RunSeqAnalysis(args []string) (result string, err error) {
+func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, lessMem bool, lineLimit int) (result string, err error) {
 	defer func() {
 		if e := recover(); e != nil {
 			slog.Error("RunSeqAnalysis", "err", e)
@@ -88,48 +99,25 @@ func (a *App) RunSeqAnalysis(args []string) (result string, err error) {
 		}
 	}()
 
-	// SeqAnalysis -i baseName
-	cmd := exec.Command("SeqAnalysis.exe", args...)
-	slog.Info("run SeqAnalysis", "cmd", cmd.String())
-	// // 使用自定义Writer捕获Stderr
-	// cmd.Stderr = &CustomWriter{ctx: a.ctx}
+	var batch = seqAnalysis.Batch{
+		OutputPrefix: outputPrefix,
+		BasePrefix:   filepath.Base(outputPrefix),
 
-	// err = cmd.Run()
-	// if err != nil {
-	// 	slog.Error("SeqAnalysis.exe", "err", err)
-	// }
-	// return
+		Long:      long,
+		LessMem:   lessMem,
+		Plot:      plot,
+		LineLimit: lineLimit,
+		Zip:       true,
 
-	stderrPipe, err := cmd.StderrPipe()
-	if err != nil {
-		runtime.LogError(a.ctx, "创建 Stderr 管道失败: "+err.Error())
-		return
+		Sheets:           make(map[string]string),
+		SeqInfoMap:       make(map[string]*seqAnalysis.SeqInfo),
+		ParallelStatsMap: make(map[string]*seqAnalysis.ParallelTest),
 	}
+	slog.Info("ENV", "cwd", simpleUtil.HandleError(os.Getwd()))
+	slog.Info("ENV", "PATH", os.Getenv("PATH"))
+	slog.Info("ENV", "os.Environ()", strings.Join(os.Environ(), "BREAK"))
+	err = batch.BatchRun(input, workDir, exPath, etcEMFS, 0)
+	slog.Info("ENV", "cwd", simpleUtil.HandleError(os.Getwd()))
 
-	if err = cmd.Start(); err != nil {
-		runtime.LogError(a.ctx, "启动命令失败: "+err.Error())
-		return
-	}
-
-	scanner := bufio.NewScanner(stderrPipe)
-	for scanner.Scan() {
-		msg := scanner.Text()
-		slog.Info("SeqAnalysis.exe", "msg", msg)
-		runtime.EventsEmit(a.ctx, "stderr-output", msg)
-	}
-
-	if err = cmd.Wait(); err != nil {
-		runtime.LogError(a.ctx, "命令执行出错: "+err.Error())
-	}
 	return
 }
-
-// type CustomWriter struct {
-// 	ctx context.Context
-// }
-
-// func (cw *CustomWriter) Write(p []byte) (n int, err error) {
-// 	// 将输出发送到前端
-// 	runtime.EventsEmit(cw.ctx, "stderr", string(p))
-// 	return len(p), nil
-// }
