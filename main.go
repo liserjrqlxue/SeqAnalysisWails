@@ -3,6 +3,8 @@ package main
 import (
 	"embed"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
@@ -12,6 +14,15 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/mac"
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
+
+// os
+var (
+	ex, _  = os.Executable()
+	exPath = filepath.Dir(ex)
+)
+
+//go:embed etc/*.txt
+var etcEMFS embed.FS
 
 //go:embed frontend/dist
 var assets embed.FS
