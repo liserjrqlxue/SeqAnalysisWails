@@ -14,6 +14,7 @@ const filePath = ref('');
 const workdir = ref('')
 const outputPrefix = ref('')
 const noPolyA = ref(false)
+const plot = ref(false)
 const lessMem = ref(false)
 const rowsLimit = ref(100000)
 
@@ -77,30 +78,17 @@ const runSeqAnalysis = async () => {
   messages.value = [];
 
   // parse args
-  const args = ["-zip"];
+  const args = [];
   if (filePath.value == "") {
     alert("Please select a file")
     return
-  } else {
-    args.push("-i", filePath.value)
-  }
-  if (workdir.value != "") {
-    args.push("-w", workdir.value)
-  }
-  if (outputPrefix.value != "") {
-    args.push("-o", outputPrefix.value)
-  }
-  if (noPolyA.value) {
-    args.push("-long")
-  }
-  if (lessMem.value) {
-    args.push("-lessMem")
-    if (rowsLimit.value > 0) {
-      args.push("-lineLimit", rowsLimit.value.toString())
-    }
   }
 
-  await RunSeqAnalysis(args).then(
+  await RunSeqAnalysis(
+    filePath.value,workdir.value,outputPrefix.value,
+    noPolyA.value,plot.value,
+    lessMem.value,rowsLimit.value,
+    ).then(
     (allResult) => {
       // scrollToBottom();
       console.log(allResult);
@@ -152,16 +140,21 @@ onBeforeUnmount(() => {
       <input class="w-5/6 px-2" type="text" v-model="outputPrefix" required />
     </div>
     <div class="flex py-2 justify-items-start justify-self-start justify-start">
-      <div class="flex w-2/6">
-        <label class="w-1/2 text-end px-4 align-bottom align-text-bottom">{{ t("seqAnalysispage.noPolyA") }}</label>
-        <input class="w-1/12" type="checkbox" v-model="noPolyA" />
+      <div class="w-1/6 px-4 text-end"> </div>
+      <div class="flex w-1/6">
+        <label class="w-1/2 text-start pr-4 align-bottom align-text-bottom">{{ t("seqAnalysispage.plot") }}</label>
+        <input class="w-1/6" type="checkbox" v-model="plot" />
       </div>
-      <div class="flex w-2/6">
-        <label class="w-1/2 text-end px-4 align-middle	">{{ t("seqAnalysispage.lessMem") }}</label>
-        <input class="w-1/12" type="checkbox" v-model="lessMem" />
+      <div class="flex w-1/6">
+        <label class="w-1/2 text-end pr-4 align-bottom align-text-bottom">{{ t("seqAnalysispage.noPolyA") }}</label>
+        <input class="w-1/6" type="checkbox" v-model="noPolyA" />
       </div>
-      <div class="flex w-2/6">
-        <label class="w-1/2 text-end px-4 ">{{ t("seqAnalysispage.rowsLimit") }}</label>
+      <div class="flex w-1/6">
+        <label class="w-1/2 text-end pr-4 align-middle	">{{ t("seqAnalysispage.lessMem") }}</label>
+        <input class="w-1/6" type="checkbox" v-model="lessMem" />
+      </div>
+      <div class="flex w-1/3">
+        <label class="w-1/2 text-end pr-4 ">{{ t("seqAnalysispage.rowsLimit") }}</label>
         <input class="w-1/2 text-end px-2" type="number" v-model="rowsLimit" />
       </div>
     </div>
