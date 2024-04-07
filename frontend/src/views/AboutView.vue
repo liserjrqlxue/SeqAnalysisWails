@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
-import comeonGif from "@/assets/images/comeon.gif";
+import zhLogo from "@/assets/images/zhgene.png";
 
 const { t } = useI18n();
 </script>
@@ -12,16 +12,11 @@ const { t } = useI18n();
     <div class="title">{{ t("aboutpage.title") }}</div>
     <!-- Information -->
     <div class="content">
-      <div class="comeon">
-        <img :src="comeonGif" alt="Gif" />
+      <div class="container flex justify-between mx-auto">
+      <div class="width-1/4">
+        <img :src="zhLogo" alt="ZhgeneLogo" />
       </div>
-      <ul class="info">
-        <li class="info-item">
-          <div class="name">{{ t("aboutpage.project-repository") }}</div>
-          <a class="link" href="https://github.com/misitebao/wails-template-vue"
-            >https://github.com/misitebao/wails-template-vue</a
-          >
-        </li>
+      <ul class="info columns-auto">
         <li class="info-item">
           <div class="name">{{ t("aboutpage.wails-repository") }}</div>
           <a class="link" href="https://github.com/wailsapp/wails"
@@ -29,12 +24,19 @@ const { t } = useI18n();
           >
         </li>
         <li class="info-item">
+          <div class="name">{{ t("aboutpage.template-repository") }}</div>
+          <a class="link" href="https://github.com/misitebao/wails-template-vue"
+            >https://github.com/misitebao/wails-template-vue</a
+          >
+        </li>
+        <li class="info-item">
           <div class="name">{{ t("aboutpage.author") }}</div>
-          <a class="link" href="https://github.com/misitebao">{{
-            t("aboutpage.misitebao")
+          <a class="link" href="https://github.com/liserjrqlxue">{{
+            t("aboutpage.wangyaoshen")
           }}</a>
         </li>
       </ul>
+      </div>
     </div>
 
     <!-- Thanks -->
@@ -64,7 +66,7 @@ const { t } = useI18n();
       }
     }
     .info {
-      margin: 0 0 0 33%;
+      // margin: 0 0 0 33%;
       font-size: 24px;
       text-align: left;
       .info-item {

@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "seqAnalysis":"Seq Analysis",
     "about": "About"
   },
   "languages": {
@@ -13,17 +14,30 @@
     "quit": "Quit"
   },
   "homepage": {
-    "welcome": "Welcome to use Wails program developed based on Vue",
+    "welcome": "Welcome to use the Sequencing Evaluation Program for DNA Synthesis Process",
     "getting-started": "Getting Started",
+    "seqAnalysis":"Seq Analysis",
     "star-me": "Github"
   },
   "aboutpage": {
-    "title": "Wails Template Vue",
+    "title": "Sequencing Evaluation Program for DNA Synthesis Processe",
     "project-repository": "Project Repository",
+    "template-repository": "Template Repository",
     "author": "Author",
     "misitebao": "Misitebao",
+    "wangyaoshen": "Wang Yaoshen",
     "wails-repository": "Wails Repository",
     "thanks": "Thank you all for your support🙏!"
+  },
+  "seqAnalysispage":{
+    "selectFile":"Select Input",
+    "workdir":"Work Directory",
+    "prefix":"Output Prefix",
+    "noPolyA":"No PolyA",
+    "lessMem":"Less Mem",
+      "rowsLimit":"Rows Limit",
+    "analysisBtn":"Analysis",
+    "log":"Running Log"
   },
   "global": {
     "not-supported": "Because it is a beta version, it can't be done for the time being, it will be completed later.",

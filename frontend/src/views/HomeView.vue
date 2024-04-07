@@ -13,7 +13,7 @@ const { t } = useI18n();
     <HelloWorld :msg="t('homepage.welcome')" />
     <!-- Bottom button -->
     <div class="link">
-      <a
+      <!-- <a
         href="https://wails.io/docs/gettingstarted/installation"
         class="btn start"
         >{{ t("homepage.getting-started") }}</a
@@ -22,7 +22,8 @@ const { t } = useI18n();
         href="https://github.com/misitebao/wails-template-vue"
         class="btn star"
         >{{ t("homepage.star-me") }}</a
-      >
+      > -->
+      <router-link class="btn start" to="/seqAnalysis">{{ t("homepage.seqAnalysis") }}</router-link>
     </div>
   </div>
 </template>
@@ -31,8 +32,9 @@ const { t } = useI18n();
 .home {
   .logo {
     display: block;
-    width: 620px;
-    height: 280px;
+    // width: 620px;
+    // height: 280px;
+    max-height: 70vh;
     margin: 10px auto 10px;
   }
   .link {

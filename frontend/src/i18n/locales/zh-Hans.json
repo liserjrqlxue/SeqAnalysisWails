@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "主页",
+    "seqAnalysis":"测序分析",
     "about": "关于"
   },
   "languages": {
@@ -13,17 +14,30 @@
     "quit": "退出"
   },
   "homepage": {
-    "welcome": "欢迎使用基于Vue开发的Wails程序",
+    "welcome": "欢迎使用 DNA 合成过程的测序评估程序",
     "getting-started": "快速入门",
+    "seqAnalysis":"测序分析",
     "star-me": "Github"
   },
   "aboutpage": {
-    "title": "Wails Template Vue",
+    "title": "DNA 合成过程的测序评估",
     "project-repository": "项目仓库",
+    "template-repository": "模板仓库",
     "author": "作者",
     "misitebao": "米司特包",
+    "wangyaoshen": "王垚燊",
     "wails-repository": "Wails 仓库",
     "thanks": "感谢各位大佬的支持🙏！"
+  },
+    "seqAnalysispage":{
+      "selectFile":"选择输入",
+      "workdir":"工作目录",
+      "prefix":"输出前缀",
+      "noPolyA":"无A尾",
+      "lessMem":"低内存",
+      "rowsLimit":"行数限制",
+      "analysisBtn":"分析",
+      "log":"运行日志"
   },
   "global": {
     "not-supported": "由于是测试版，所以暂时做不了，后续会完成它。",
