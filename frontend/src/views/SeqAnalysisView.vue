@@ -65,8 +65,15 @@ const openFileDialog = async () => {
     };
     const result = await SelectFile(options.Title);
     filePath.value = result;
+    let inputTag = basename(filePath.value)
+    inputTag=inputTag.replace(".xlsx", "")
     workdir.value = dirname(filePath.value)
-    outputPrefix.value = workdir.value + "/" + basename(workdir.value)
+    if (inputTag == "input") {
+      outputPrefix.value = workdir.value + "/" + basename(workdir.value)
+    } else {
+      inputTag=inputTag.replace("input", "")
+      outputPrefix.value = workdir.value + "/" + basename(workdir.value) + "." + inputTag
+    }
     // 这里可以添加更多处理文件路径的逻辑
   } catch (error) {
     console.error('Error selecting file:', error);
@@ -85,10 +92,10 @@ const runSeqAnalysis = async () => {
   }
 
   await RunSeqAnalysis(
-    filePath.value,workdir.value,outputPrefix.value,
-    noPolyA.value,plot.value,
-    lessMem.value,rowsLimit.value,
-    ).then(
+    filePath.value, workdir.value, outputPrefix.value,
+    noPolyA.value, plot.value,
+    lessMem.value, rowsLimit.value,
+  ).then(
     (allResult) => {
       // scrollToBottom();
       console.log(allResult);
