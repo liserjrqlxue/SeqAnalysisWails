@@ -33,6 +33,7 @@
     "selectFile":"Select Input",
     "workdir":"Work Directory",
     "prefix":"Output Prefix",
+    "options":"Options",
     "noPolyA":"No PolyA",
     "plot":"Plot",
     "lessMem":"Less Mem",

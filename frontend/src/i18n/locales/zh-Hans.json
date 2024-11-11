@@ -33,6 +33,7 @@
       "selectFile":"选择输入",
       "workdir":"工作目录",
       "prefix":"输出前缀",
+      "options":"额外选项",
       "plot":"画图",
       "noPolyA":"无A尾",
       "lessMem":"低内存",
