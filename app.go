@@ -109,6 +109,7 @@ func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, le
 		LineLimit: lineLimit,
 		Zip:       true,
 		UseRC:     true,
+		// UseKmer:   true,
 
 		Sheets:           make(map[string]string),
 		SeqInfoMap:       make(map[string]*seqAnalysis.SeqInfo),
