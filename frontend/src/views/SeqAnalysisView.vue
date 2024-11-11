@@ -16,7 +16,7 @@ const outputPrefix = ref('')
 const noPolyA = ref(false)
 const plot = ref(false)
 const lessMem = ref(false)
-const rowsLimit = ref(100000)
+const rowsLimit = ref(10000)
 
 const messages = ref<string[]>([])
 
@@ -66,12 +66,12 @@ const openFileDialog = async () => {
     const result = await SelectFile(options.Title);
     filePath.value = result;
     let inputTag = basename(filePath.value)
-    inputTag=inputTag.replace(".xlsx", "")
+    inputTag = inputTag.replace(".xlsx", "")
     workdir.value = dirname(filePath.value)
     if (inputTag == "input") {
       outputPrefix.value = workdir.value + "/" + basename(workdir.value)
     } else {
-      inputTag=inputTag.replace("input", "")
+      inputTag = inputTag.replace("input", "")
       outputPrefix.value = workdir.value + "/" + basename(workdir.value) + "." + inputTag
     }
     // 这里可以添加更多处理文件路径的逻辑
@@ -133,38 +133,57 @@ onBeforeUnmount(() => {
 
 
 <template>
-  <div class="container mx-auto py-4 align-baseline		" style="--wails-draggable:no-drag">
-    <div class="flex w-full py-2">
-      <label class="w-1/6 text-end px-4 ">{{ t("seqAnalysispage.selectFile") }}</label>
-      <input class="w-5/6 px-2" type="text" @click="openFileDialog" v-model="filePath" required />
-    </div>
-    <div class="flex w-full py-2">
-      <label class="w-1/6 text-end px-4 ">{{ t("seqAnalysispage.workdir") }}</label>
-      <input class="w-5/6 px-2" type="text" v-model="workdir" required />
-    </div>
-    <div class="flex w-full py-2">
-      <label class="w-1/6 text-end px-4 ">{{ t("seqAnalysispage.prefix") }}</label>
-      <input class="w-5/6 px-2" type="text" v-model="outputPrefix" required />
-    </div>
-    <div class="flex py-2 justify-items-start justify-self-start justify-start">
-      <div class="w-1/6 px-4 text-end"> </div>
-      <div class="flex w-1/6">
-        <label class="w-1/2 text-start pr-4 align-bottom align-text-bottom">{{ t("seqAnalysispage.plot") }}</label>
-        <input class="w-1/6" type="checkbox" v-model="plot" />
-      </div>
-      <div class="flex w-1/6">
-        <label class="w-1/2 text-end pr-4 align-bottom align-text-bottom">{{ t("seqAnalysispage.noPolyA") }}</label>
-        <input class="w-1/6" type="checkbox" v-model="noPolyA" />
-      </div>
-      <div class="flex w-1/6">
-        <label class="w-1/2 text-end pr-4 align-middle	">{{ t("seqAnalysispage.lessMem") }}</label>
-        <input class="w-1/6" type="checkbox" v-model="lessMem" />
-      </div>
-      <div class="flex w-1/3">
-        <label class="w-1/2 text-end pr-4 ">{{ t("seqAnalysispage.rowsLimit") }}</label>
-        <input class="w-1/2 text-end px-2" type="number" v-model="rowsLimit" />
+  <div class="container mx-auto p-0" style="--wails-draggable:no-drag">
+    <div class="flex w-full">
+      <label class="w-1/6 text-end p-2">{{ t("seqAnalysispage.selectFile") }}</label>
+      <div class="w-5/6 py-2">
+        <input class="w-full px-2 py-0" type="text" @click="openFileDialog" v-model="filePath" required />
       </div>
     </div>
+    <div class="flex w-full p-0">
+      <label class="w-1/6 text-end p-2">{{ t("seqAnalysispage.workdir") }}</label>
+      <div class="w-5/6 py-2">
+        <input class="w-full px-2 p-0" type="text" v-model="workdir" required />
+      </div>
+    </div>
+    <div class="flex w-full py-0">
+      <label class="w-1/6 text-end p-2">{{ t("seqAnalysispage.prefix") }}</label>
+      <div class="w-5/6 py-2">
+        <input class="w-full px-2 py-0" type="text" v-model="outputPrefix" required />
+      </div>
+    </div>
+
+    <div class="flex w-full py-0">
+      <label class="w-1/6 text-end p-2">{{ t("seqAnalysispage.options") }} </label>
+      <div class="flex w-5/6 py-2">
+        <div class="flex w-1/4">
+          <label class="text-end px-2">{{ t("seqAnalysispage.plot") }}</label>
+          <div class="py-0">
+            <input class="px-2 py-0" type="checkbox" v-model="plot" />
+          </div>
+        </div>
+        <div class="flex w-1/4">
+          <label class="text-end px-2">{{ t("seqAnalysispage.noPolyA") }}</label>
+          <div class="py-0">
+            <input class="px-2 py-0" type="checkbox" v-model="noPolyA" />
+          </div>
+        </div>
+        <div class="flex w-1/4">
+          <label class="text-end px-2">{{ t("seqAnalysispage.lessMem") }}</label>
+          <div class="py-0">
+            <input class="px-2 py-0" type="checkbox" v-model="lessMem" />
+          </div>
+        </div>
+        <div class="flex w-1/4">
+          <label class="w-1/2 text-end px-2">{{ t("seqAnalysispage.rowsLimit") }}</label>
+          <div class="w-1/2 py-0">
+            <input class="w-full text-end px-2 py-0" type="number" v-model="rowsLimit" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="flex w-full py-2 justify-end">
       <button class="button w-5/6 bg-white" @click="runSeqAnalysis">{{ t("seqAnalysispage.analysisBtn") }}</button>
     </div>
