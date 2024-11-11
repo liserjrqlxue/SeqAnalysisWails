@@ -39,12 +39,12 @@ func main() {
 	// 使用选项创建应用
 	err := wails.Run(&options.App{
 		Title:             "SeqAnalysisWails",
-		Width:             900,
-		Height:            900,
-		MinWidth:          900,
-		MinHeight:         600,
-		MaxWidth:          1500,
-		MaxHeight:         1000,
+		Width:             1366,
+		Height:            768,
+		MinWidth:          1366,
+		MinHeight:         768,
+		MaxWidth:          3840,
+		MaxHeight:         2160,
 		DisableResize:     false,
 		Fullscreen:        false,
 		Frameless:         false,
