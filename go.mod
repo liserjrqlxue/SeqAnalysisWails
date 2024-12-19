@@ -1,4 +1,4 @@
-module changeme
+module SeqAnalysisWails
 
 go 1.21
 
