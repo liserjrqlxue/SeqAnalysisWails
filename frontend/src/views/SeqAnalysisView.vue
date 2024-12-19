@@ -159,7 +159,7 @@ onBeforeUnmount(() => {
         <div class="flex w-1/4">
           <label class="text-end px-2">{{ t("seqAnalysispage.plot") }}</label>
           <div class="py-0">
-            <input class="px-2 py-0" type="checkbox" v-model="plot" />
+            <input class="px-2 py-0" type="checkbox" v-model="plot" checked/>
           </div>
         </div>
         <div class="flex w-1/4">
@@ -171,13 +171,13 @@ onBeforeUnmount(() => {
         <div class="flex w-1/4">
           <label class="text-end px-2">{{ t("seqAnalysispage.lessMem") }}</label>
           <div class="py-0">
-            <input class="px-2 py-0" type="checkbox" v-model="lessMem" />
+            <input class="px-2 py-0" type="checkbox" v-model="lessMem" checked/>
           </div>
         </div>
         <div class="flex w-1/4">
           <label class="w-1/2 text-end px-2">{{ t("seqAnalysispage.rowsLimit") }}</label>
           <div class="w-1/2 py-0">
-            <input class="w-full text-end px-2 py-0" type="number" v-model="rowsLimit" />
+            <input class="w-full text-end px-2 py-0" type="number" v-model="rowsLimit"/>
           </div>
         </div>
       </div>
