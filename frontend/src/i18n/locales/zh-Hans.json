@@ -35,7 +35,7 @@
       "prefix":"输出前缀",
       "options":"额外选项",
       "plot":"画图",
-      "noPolyA":"无A尾",
+      "noPolyA":"无尾靶标",
       "lessMem":"低内存",
       "rowsLimit":"行数限制",
       "analysisBtn":"分析",
