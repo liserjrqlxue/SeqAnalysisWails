@@ -15,7 +15,8 @@ const workdir = ref('')
 const outputPrefix = ref('')
 const noPolyA = ref(false)
 const plot = ref(false)
-const lessMem = ref(false)
+const lessMem = ref(true)
+const debug = ref(false)
 const rowsLimit = ref(10000)
 
 const messages = ref<string[]>([])
@@ -94,7 +95,7 @@ const runSeqAnalysis = async () => {
   await RunSeqAnalysis(
     filePath.value, workdir.value, outputPrefix.value,
     noPolyA.value, plot.value,
-    lessMem.value, rowsLimit.value,
+    lessMem.value,debug.value, rowsLimit.value,
   ).then(
     (allResult) => {
       // scrollToBottom();
@@ -156,25 +157,31 @@ onBeforeUnmount(() => {
     <div class="flex w-full py-0">
       <label class="w-1/6 text-end p-2">{{ t("seqAnalysispage.options") }} </label>
       <div class="flex w-5/6 py-2">
-        <div class="flex w-1/4">
+        <div class="flex w-1/5">
           <label class="text-end px-2">{{ t("seqAnalysispage.plot") }}</label>
           <div class="py-0">
             <input class="px-2 py-0" type="checkbox" v-model="plot" checked/>
           </div>
         </div>
-        <div class="flex w-1/4">
+        <div class="flex w-1/5">
           <label class="text-end px-2">{{ t("seqAnalysispage.noPolyA") }}</label>
           <div class="py-0">
             <input class="px-2 py-0" type="checkbox" v-model="noPolyA" />
           </div>
         </div>
-        <div class="flex w-1/4">
-          <label class="text-end px-2">{{ t("seqAnalysispage.lessMem") }}</label>
+        <div class="flex w-1/5">
+          <label class="text-end px-2">{{ t("seqAnalysispage.debug") }}</label>
           <div class="py-0">
-            <input class="px-2 py-0" type="checkbox" v-model="lessMem" checked/>
+            <input class="px-2 py-0" type="checkbox" v-model="debug" />
           </div>
         </div>
-        <div class="flex w-1/4">
+        <div class="flex w-1/5">
+          <label class="text-end px-2">{{ t("seqAnalysispage.lessMem") }}</label>
+          <div class="py-0">
+            <input class="px-2 py-0" type="checkbox" v-model="lessMem" />
+          </div>
+        </div>
+        <div class="flex w-1/5">
           <label class="w-1/2 text-end px-2">{{ t("seqAnalysispage.rowsLimit") }}</label>
           <div class="w-1/2 py-0">
             <input class="w-full text-end px-2 py-0" type="number" v-model="rowsLimit"/>

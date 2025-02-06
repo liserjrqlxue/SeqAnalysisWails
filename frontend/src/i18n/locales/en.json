@@ -35,6 +35,7 @@
     "prefix":"Output Prefix",
     "options":"Options",
     "noPolyA":"No Tail",
+    "Debug":"Debug",
     "plot":"Plot",
     "lessMem":"Less Mem",
     "rowsLimit":"Rows Limit",

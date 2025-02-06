@@ -89,7 +89,7 @@ func (a *App) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
-func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, lessMem bool, lineLimit int) (result string, err error) {
+func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, lessMem, debug bool, lineLimit int) (result string, err error) {
 	defer func() {
 		if e := recover(); e != nil {
 			slog.Error("RunSeqAnalysis", "err", e)
@@ -98,6 +98,12 @@ func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, le
 			}
 		}
 	}()
+
+	if debug {
+		slog.SetLogLoggerLevel(slog.LevelDebug)
+	} else {
+		slog.SetLogLoggerLevel(slog.LevelInfo)
+	}
 
 	var batch = seqAnalysis.Batch{
 		OutputPrefix: outputPrefix,
