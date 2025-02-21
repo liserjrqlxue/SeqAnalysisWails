@@ -1,0 +1,13 @@
+Name	SheetName
+Stats	Sheet
+BarCode	BarCode
+Deletion	Deletion
+DeletionSingle	DeletionSingle
+DeletionContinuous2	DeletionContinuous2
+DeletionContinuous3	DeletionContinuous3
+DeletionDiscrete2	DeletionDiscrete2
+DeletionDiscrete3	DeletionDiscrete3
+Insertion	Insertion
+InsertionDeletion	InsertionDeletion
+Mutation	Mutation
+Other	Other
