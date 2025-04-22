@@ -18,6 +18,7 @@ const plot = ref(false)
 const lessMem = ref(true)
 const debug = ref(false)
 const rowsLimit = ref(10000)
+const filterShort= ref(0)
 
 const messages = ref<string[]>([])
 
@@ -96,6 +97,7 @@ const runSeqAnalysis = async () => {
     filePath.value, workdir.value, outputPrefix.value,
     noPolyA.value, plot.value,
     lessMem.value,debug.value, rowsLimit.value,
+    filterShort.value,
   ).then(
     (allResult) => {
       // scrollToBottom();
@@ -157,31 +159,37 @@ onBeforeUnmount(() => {
     <div class="flex w-full py-0">
       <label class="w-1/6 text-end p-2">{{ t("seqAnalysispage.options") }} </label>
       <div class="flex w-5/6 py-2">
-        <div class="flex w-1/5">
+        <div class="flex">
           <label class="text-end px-2">{{ t("seqAnalysispage.plot") }}</label>
           <div class="py-0">
             <input class="px-2 py-0" type="checkbox" v-model="plot" checked/>
           </div>
         </div>
-        <div class="flex w-1/5">
+        <div class="flex">
           <label class="text-end px-2">{{ t("seqAnalysispage.noPolyA") }}</label>
           <div class="py-0">
             <input class="px-2 py-0" type="checkbox" v-model="noPolyA" />
           </div>
         </div>
-        <div class="flex w-1/5">
+        <div class="flex">
           <label class="text-end px-2">{{ t("seqAnalysispage.debug") }}</label>
           <div class="py-0">
             <input class="px-2 py-0" type="checkbox" v-model="debug" />
           </div>
         </div>
-        <div class="flex w-1/5">
+        <div class="flex">
+          <label class="text-end px-2">{{ t("seqAnalysispage.filterShort") }}</label>
+          <div class="w-1/3 py-0">
+            <input class="w-full text-end px-2 py-0" type="number" v-model="filterShort"/>
+          </div>
+        </div>
+        <div class="flex ml-auto">
           <label class="text-end px-2">{{ t("seqAnalysispage.lessMem") }}</label>
           <div class="py-0">
             <input class="px-2 py-0" type="checkbox" v-model="lessMem" />
           </div>
         </div>
-        <div class="flex w-1/5">
+        <div class="flex w-1/6">
           <label class="w-1/2 text-end px-2">{{ t("seqAnalysispage.rowsLimit") }}</label>
           <div class="w-1/2 py-0">
             <input class="w-full text-end px-2 py-0" type="number" v-model="rowsLimit"/>
