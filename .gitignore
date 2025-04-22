@@ -1,6 +1,13 @@
 build/bin
+build/windows/installer/tmp
+
+bin/*.R
+
 frontend/dist
 frontend/node_modules
+frontend/src/assets/DALL·E*
 
 .github/
 .vscode/
+
+合成序列评估Wails软件/
