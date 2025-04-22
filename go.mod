@@ -5,9 +5,9 @@ go 1.23.2
 toolchain go1.24.0
 
 require (
-	SeqAnalysis v1.1.0
+	SeqAnalysis v1.1.1
 	github.com/liserjrqlxue/goUtil v0.2.1
-	github.com/wailsapp/wails/v2 v2.10.0
+	github.com/wailsapp/wails/v2 v2.10.1
 )
 
 require (
@@ -50,4 +50,4 @@ require (
 )
 
 // replace github.com/wailsapp/wails/v2 v2.8.0 => C:\Users\jrqlx\go\pkg\mod
-replace SeqAnalysis v1.1.0 => github.com/liserjrqlxue/SeqAnalysis v1.1.0
+replace SeqAnalysis v1.1.1 => github.com/liserjrqlxue/SeqAnalysis v1.1.1
