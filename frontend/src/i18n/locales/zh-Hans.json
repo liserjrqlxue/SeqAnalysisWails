@@ -37,6 +37,7 @@
       "plot":"画图",
       "noPolyA":"无尾靶标",
       "debug":"调试",
+      "filterShort":"过滤短合成",
       "lessMem":"低内存",
       "rowsLimit":"行数限制",
       "analysisBtn":"分析",
