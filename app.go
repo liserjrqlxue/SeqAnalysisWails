@@ -16,6 +16,11 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
+// global variables
+var (
+	LogLevel slog.LevelVar
+)
+
 // App struct
 type App struct {
 	ctx context.Context
@@ -35,7 +40,17 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 	logFile := osUtil.Create("SeqAnalysisWails.log")
 	mw := io.MultiWriter(logFile, a)
-	slog.SetDefault(slog.New(slog.NewTextHandler(mw, nil)))
+	LogLevel.Set(slog.LevelInfo)
+	slog.SetDefault(
+		slog.New(
+			slog.NewTextHandler(
+				mw,
+				&slog.HandlerOptions{
+					Level: &LogLevel,
+				},
+			),
+		),
+	)
 }
 
 // domReady is called after the front-end dom has been loaded
@@ -89,7 +104,7 @@ func (a *App) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
-func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, lessMem, debug bool, lineLimit int) (result string, err error) {
+func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, lessMem, debug bool, lineLimit, short int) (result string, err error) {
 	defer func() {
 		if e := recover(); e != nil {
 			slog.Error("RunSeqAnalysis", "err", e)
@@ -99,12 +114,18 @@ func (a *App) RunSeqAnalysis(input, workDir, outputPrefix string, long, plot, le
 		}
 	}()
 
+	slog.Info("RunSeqAnalysis", "input", input, "workDir", workDir, "outputPrefix", outputPrefix, "long", long, "plot", plot, "lessMem", lessMem, "debug", debug, "lineLimit", lineLimit)
 	if debug {
-		slog.SetLogLoggerLevel(slog.LevelDebug)
+		slog.Info("Set log level to debug")
+		LogLevel.Set(slog.LevelDebug)
+		slog.Info("Set log level to debug Done")
+		slog.Debug("Set log level to debug Done")
+		slog.Debug("debug", "input", input, "workDir", workDir, "outputPrefix", outputPrefix, "long", long, "plot", plot, "lessMem", lessMem, "debug", debug, "lineLimit", lineLimit)
 	} else {
-		slog.SetLogLoggerLevel(slog.LevelInfo)
+		LogLevel.Set(slog.LevelInfo)
 	}
 
+	seqAnalysis.Short = short
 	var batch = seqAnalysis.Batch{
 		OutputPrefix: outputPrefix,
 		BasePrefix:   filepath.Base(outputPrefix),
